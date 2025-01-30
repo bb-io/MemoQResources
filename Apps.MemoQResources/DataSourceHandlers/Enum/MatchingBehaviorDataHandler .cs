@@ -6,10 +6,10 @@ namespace Apps.MemoQResources.DataSourceHandlers.Enum
     {
         protected Dictionary<string, string> EnumValues => new()
         {
-            {"0", "BeginsWith"},
-            {"1", "Contains"},
-            {"2", "EndsWith"},
-            {"3", "ExactMatch"}
+            ["0"] ="BeginsWith",
+            ["1"] ="Contains",
+            ["2"] = "EndsWith",
+            ["3"] = "ExactMatch"
         };
 
         public Dictionary<string, string> GetData()

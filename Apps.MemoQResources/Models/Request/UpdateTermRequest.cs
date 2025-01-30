@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Apps.MemoQResources.DataSourceHandlers;
+﻿using Apps.MemoQResources.DataSourceHandlers;
 using Apps.MemoQResources.DataSourceHandlers.Enum;
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Dictionaries;
@@ -18,30 +12,31 @@ namespace Apps.MemoQResources.Models.Request
         [DataSource(typeof(TermbaseDataHandler))]
         public string Guid { get; set; }
 
-        [Display("Desired matching behavior")]
-        [StaticDataSource(typeof(MatchingBehaviorDataHandler))]
-        public string Condition {  get; set; }
-
-        [Display("Language")]
-        [StaticDataSource(typeof(TargetLanguageDataHandler))]
-        public string Language {  get; set; }
+        [Display("Entry ID")]
+        public int EntryId { get; set; }
 
         [Display("Search expression")]
         public string SearchExpression { get; set; }
 
-        [Display("Entry ID")]
-        public string Entry { get; set; }
+        [Display("Client")]
+        public string? Client { get; set; }
 
-        [Display("Name")]
-        public string Name  { get; set; }
+        [Display("Domain")]
+        public string? Domain { get; set; }
 
-        [Display("Custom meta name")]
-        public string? MetaName { get; set; }
+        [Display("Language definition")]
+        public string? Definition { get; set; }
 
-        [Display("Custom meta value")]
-        public string? MetaValue { get; set; }
+        [Display("Desired matching behavior")]
+        [StaticDataSource(typeof(MatchingBehaviorDataHandler))]
+        public int Condition { get; set; }
 
-        public string? Definition {  get; set; }
+        [Display("Language")]
+        [StaticDataSource(typeof(TargetLanguageDataHandler))]
+        public string Language { get; set; }
+
+        [Display("Text")]
+        public string Text { get; set; }
 
         [Display("Case sensitivity")]
         [StaticDataSource(typeof(CaseSensitivityLevelDataHandler))]
@@ -55,15 +50,21 @@ namespace Apps.MemoQResources.Models.Request
 
         [Display("Partial match")]
         [StaticDataSource(typeof(PartialMatchDegreeDataHandler))]
-        public int TermPartialMatches { get; set; }
+        public int? TermPartialMatches { get; set; }
 
-        [Display("Modified")]
-        public DateTime Modified {  get; set; }
+        [Display("Modified date")]
+        public DateTime Modified { get; set; }
 
         [Display("Example sentence")]
-        public string? TermExample { get; set; } 
+        public string? TermExample { get; set; }
 
-        [Display("Domain")]
-        public string? Domain { get; set; }
+        [Display("Note")]
+        public string? Note { get; set; }
+
+        [Display("Project")]
+        public string? Project { get; set; }
+
+        [Display("Subject")]
+        public string? Subject { get; set; }
     }
 }
