@@ -8,6 +8,7 @@ using RestSharp;
 
 namespace Apps.MemoQResources.Polling
 {
+    [PollingEventList]
     public class TermbasePolling : MemoQResourcesInvocable
     {
         public TermbasePolling(InvocationContext invocationContext) : base(invocationContext) { }
