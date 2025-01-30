@@ -1,3 +1,4 @@
+using Apps.MemoQResources.Models.Items;
 using Apps.MemoQResources.Models.Response;
 using Blackbird.Applications.Sdk.Common.Authentication;
 using Blackbird.Applications.Sdk.Common.Exceptions;
@@ -46,6 +47,7 @@ public class MemoQResourcesClient : BlackBirdRestClient
 
     protected override Exception ConfigureErrorException(RestResponse response)
     {
+        var error = JsonConvert.DeserializeObject<ErrorDto>(response.Content, JsonSettings);
         return new PluginApplicationException($"Error message: {response.Content}; StatusCode: {response.StatusCode}");
     }
 
