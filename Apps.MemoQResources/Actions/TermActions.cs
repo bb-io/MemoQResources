@@ -25,7 +25,7 @@ public class TermActions: BaseInvocable
         var request = new RestRequest(
             $"memoqserverhttpapi/v1/tbs/{input.Guid}/entries/{input.EntryId}/update", Method.Post);
         var username = InvocationContext.AuthenticationCredentialsProviders
-                    .First(p => p.KeyName == "username").Value;
+                    .FirstOrDefault(p => p.KeyName == "username").Value;
         var languagesList = input.Languages.ToList();
         var definitionsList = input.Definition.ToList();
         var moderationList = input.Moderation.ToList();
