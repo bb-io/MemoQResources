@@ -10,6 +10,11 @@ public class MemoQResourcesApplication : IApplication, ICategoryProvider
         get => [ApplicationCategory.CatAndTms];
         set { }
     }
+    public string Name
+    {
+        get => "memoQ Resources";
+        set { }
+    }
 
     public T GetInstance<T>()
     {
