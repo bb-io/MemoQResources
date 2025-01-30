@@ -16,7 +16,7 @@ namespace Apps.MemoQResources.Polling
         [PollingEvent("On terms added or updated", "Triggered when new terms are added or existing terms are updated")]
         public async Task<PollingEventResponse<TermbaseMemory, TermbaseUpdateResponse>> OnTermsAddedOrUpdated(
             PollingEventRequest<TermbaseMemory> request,
-            [WebhookParameter] TermbaseInput input)
+            [PollingEventParameter] TermbaseInput input)
         {
             var client = new MemoQResourcesClient(InvocationContext.AuthenticationCredentialsProviders);
             var requestUrl = $"memoqserverhttpapi/v1/tbs/{input.TbId}";
