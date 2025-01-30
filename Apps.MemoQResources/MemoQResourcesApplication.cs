@@ -1,13 +1,13 @@
 ﻿using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Metadata;
 
-namespace Apps.App;
+namespace Apps.MemoQResources;
 
-public class Application : IApplication, ICategoryProvider
+public class MemoQResourcesApplication : IApplication, ICategoryProvider
 {
     public IEnumerable<ApplicationCategory> Categories
     {
-        get => [];
+        get => [ApplicationCategory.CatAndTms];
         set { }
     }
 

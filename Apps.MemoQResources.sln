@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apps.MemoQResources", "Apps.App\Apps.MemoQResources.csproj", "{EB25604E-8EBA-464E-BEDF-30EA95395AD3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apps.MemoQResources", "Apps.MemoQResources\Apps.MemoQResources.csproj", "{EB25604E-8EBA-464E-BEDF-30EA95395AD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.MemoQResources", "Tests.MemoQResources\Tests.MemoQResources.csproj", "{10D29288-EFB7-4EE9-B005-14F3331C53C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{EB25604E-8EBA-464E-BEDF-30EA95395AD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB25604E-8EBA-464E-BEDF-30EA95395AD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB25604E-8EBA-464E-BEDF-30EA95395AD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10D29288-EFB7-4EE9-B005-14F3331C53C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10D29288-EFB7-4EE9-B005-14F3331C53C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10D29288-EFB7-4EE9-B005-14F3331C53C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10D29288-EFB7-4EE9-B005-14F3331C53C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
