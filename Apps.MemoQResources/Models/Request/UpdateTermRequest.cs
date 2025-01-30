@@ -25,7 +25,7 @@ namespace Apps.MemoQResources.Models.Request
         public string? Domain { get; set; }
 
         [Display("Language definition")]
-        public string? Definition { get; set; }
+        public IEnumerable<string>? Definition { get; set; }
 
         [Display("Desired matching behavior")]
         [StaticDataSource(typeof(MatchingBehaviorDataHandler))]
@@ -33,30 +33,30 @@ namespace Apps.MemoQResources.Models.Request
 
         [Display("Language")]
         [StaticDataSource(typeof(TargetLanguageDataHandler))]
-        public string Language { get; set; }
+        public IEnumerable<string> Languages { get; set; }
 
         [Display("Text")]
-        public string Text { get; set; }
+        public IEnumerable<string> Text { get; set; }
 
         [Display("Case sensitivity")]
         [StaticDataSource(typeof(CaseSensitivityLevelDataHandler))]
-        public int? CaseSense { get; set; }
+        public IEnumerable<int>? CaseSense { get; set; }
 
         [Display("Is forbidden")]
-        public bool? TermIsForbidden { get; set; }
+        public IEnumerable<bool>? TermIsForbidden { get; set; }
 
         [Display("Needs moderation")]
-        public bool? Moderation { get; set; }
+        public IEnumerable<bool>? Moderation { get; set; }
 
         [Display("Partial match")]
         [StaticDataSource(typeof(PartialMatchDegreeDataHandler))]
-        public int? TermPartialMatches { get; set; }
+        public IEnumerable<int>? TermPartialMatches { get; set; }
 
         [Display("Modified date")]
         public DateTime Modified { get; set; }
 
         [Display("Example sentence")]
-        public string? TermExample { get; set; }
+        public IEnumerable<string>? Example { get; set; }
 
         [Display("Note")]
         public string? Note { get; set; }

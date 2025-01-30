@@ -21,20 +21,21 @@ namespace Tests.MemoQResources
             var request = new UpdateTermRequest
             {
                 Guid = "1366ac93-cf7c-46f1-80da-b0d15ec22c29",
-                Condition = 0,
-                Language = "eng-GB",
-                SearchExpression = "Hello",
                 EntryId = 19,
-                Text = "Hello how are you?",
-                CaseSense = 1,
-                Definition = "Hello Chumba",
-                TermIsForbidden = false,
+                Client = "Client Zhopa",
+
+                Languages = new[] { "eng-GB", "ger" },
+                Definition = new[] { "Hello", "Guten Tag" },
+                Moderation = new[] { false, false },
+
+                Text = new[] { "Helloasdasd", "Guten Tag" },
+                Example = new[] { "Hi there!asdasdasdas", "Guten Tag!" },
+                CaseSense = new[] { 1, 1 },
+                TermIsForbidden = new[] { false, false },
+                TermPartialMatches = new[] { 1, 1 },
                 Note = "First greeting entry",
-                Moderation = true,
-                TermPartialMatches = 0,
-                Modified = DateTime.UtcNow,
-                TermExample = "Hello how are you bashka?",
-                Client = "MyClient"
+                Project = "Test Project",
+                Subject = "Test Subject"
             };
             var response = await action.UpdateTerm(request);
 

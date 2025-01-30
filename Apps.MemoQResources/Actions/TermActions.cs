@@ -24,45 +24,59 @@ public class TermActions: BaseInvocable
         var client = new MemoQResourcesClient(InvocationContext.AuthenticationCredentialsProviders);
         var request = new RestRequest(
             $"memoqserverhttpapi/v1/tbs/{input.Guid}/entries/{input.EntryId}/update", Method.Post);
-
-
-        var termItem = new
-        {
-            CaseSense = input.CaseSense ?? null,
-            Example = input.TermExample ?? null,
-            IsForbidden = input.TermIsForbidden,
-            PartialMatch = input.TermPartialMatches,
-            Text = input.Text
-        };
-
-        var languageItem = new
-        {
-            Language = input.Language ?? null,
-            Definition = input.Definition ?? null,
-            NeedsModeration = input.Moderation,
-            TermItems = new[] { termItem }
-        };
         var username = InvocationContext.AuthenticationCredentialsProviders
-        .First(p => p.KeyName == "username").Value;
+                    .First(p => p.KeyName == "username").Value;
+        var languagesList = input.Languages.ToList();
+        var definitionsList = input.Definition.ToList();
+        var moderationList = input.Moderation.ToList();
+        var textsList = input.Text.ToList();
+        var examplesList = input.Example.ToList();
+        var caseSensitivitiesList = input.CaseSense.ToList();
+        var isForbiddenList = input.TermIsForbidden.ToList();
+        var partialMatchesList = input.TermPartialMatches.ToList();
+
+        var languages = new List<object>();
+
+        for (int i = 0; i < languagesList.Count; i++)
+        {
+            var termItems = new List<object>
+        {
+            new
+            {
+                CaseSense = caseSensitivitiesList.ElementAtOrDefault(i),
+                Example = examplesList.ElementAtOrDefault(i),
+                IsForbidden = isForbiddenList.ElementAtOrDefault(i),
+                PartialMatch = partialMatchesList.ElementAtOrDefault(i),
+                Text = textsList.ElementAtOrDefault(i)
+            }
+        };
+
+            var languageItem = new
+            {
+                Language = languagesList[i],
+                Definition = definitionsList.ElementAtOrDefault(i),
+                NeedsModeration = moderationList.ElementAtOrDefault(i),
+                TermItems = termItems
+            };
+
+            languages.Add(languageItem);
+        }
+
         var bodyObject = new
         {
             Created = DateTime.UtcNow,
             Creator = "API",
             Modified = DateTime.UtcNow,
             Modifier = username,
-
             Client = input.Client ?? null,
             Domain = input.Domain ?? null,
-
-            Languages = new[] { languageItem },
-
+            Languages = languages,
             Note = input.Note ?? null,
             Project = input.Project ?? null,
             Subject = input.Subject ?? null
         };
 
         request.AddJsonBody(bodyObject);
-
 
         var response = await client.ExecuteWithErrorHandling(request);
 

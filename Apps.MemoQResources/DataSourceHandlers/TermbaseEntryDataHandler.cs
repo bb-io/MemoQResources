@@ -26,14 +26,14 @@ namespace Apps.MemoQResources.DataSourceHandlers
         public async Task<IEnumerable<DataSourceItem>> GetDataAsync(DataSourceContext context, CancellationToken cancellationToken)
         {
            
-            var targetLanguage = _input.Language;
+            var targetLanguage = _input.Languages;
 
             var request = new RestRequest($"memoqserverhttpapi/v1/tbs/{_input.Guid}/search", Method.Post);
             request.AddJsonBody(new
             {
                 Condition = _input.Condition,
                 SearchExpression = _input.SearchExpression,
-                TargetLanguage = _input.Language,
+                TargetLanguage = new string[] { _input.Languages.First() },
                 Limit = 50 
             });
 
