@@ -52,9 +52,6 @@ namespace Apps.MemoQResources.Models.Request
         [StaticDataSource(typeof(PartialMatchDegreeDataHandler))]
         public IEnumerable<int>? TermPartialMatches { get; set; }
 
-        [Display("Modified date")]
-        public DateTime Modified { get; set; }
-
         [Display("Example sentence")]
         public IEnumerable<string>? Example { get; set; }
 

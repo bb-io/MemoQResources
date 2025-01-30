@@ -12,34 +12,36 @@ using RestSharp;
 namespace Apps.MemoQResources.Actions;
 
 [ActionList]
-public class TermActions: BaseInvocable
+public class TermActions : BaseInvocable
 {
     public TermActions(InvocationContext invocationContext) : base(invocationContext)
-    {      
+    {
     }
 
     [Action("Update term", Description = "Updates a termbase entry in memoQ")]
     public async Task<UpdateTermResponse> UpdateTerm([ActionParameter] UpdateTermRequest input)
     {
-        var client = new MemoQResourcesClient(InvocationContext.AuthenticationCredentialsProviders);
-        var request = new RestRequest(
-            $"memoqserverhttpapi/v1/tbs/{input.Guid}/entries/{input.EntryId}/update", Method.Post);
-        var username = InvocationContext.AuthenticationCredentialsProviders
-                    .FirstOrDefault(p => p.KeyName == "username").Value;
-        var languagesList = input.Languages.ToList();
-        var definitionsList = input.Definition.ToList();
-        var moderationList = input.Moderation.ToList();
-        var textsList = input.Text.ToList();
-        var examplesList = input.Example.ToList();
-        var caseSensitivitiesList = input.CaseSense.ToList();
-        var isForbiddenList = input.TermIsForbidden.ToList();
-        var partialMatchesList = input.TermPartialMatches.ToList();
-
-        var languages = new List<object>();
-
-        for (int i = 0; i < languagesList.Count; i++)
+        try
         {
-            var termItems = new List<object>
+            var client = new MemoQResourcesClient(InvocationContext.AuthenticationCredentialsProviders);
+            var request = new RestRequest(
+                $"memoqserverhttpapi/v1/tbs/{input.Guid}/entries/{input.EntryId}/update", Method.Post);
+            var username = InvocationContext.AuthenticationCredentialsProviders
+                        .FirstOrDefault(p => p.KeyName == "username").Value;
+            var languagesList = input.Languages.ToList();
+            var definitionsList = input.Definition.ToList();
+            var moderationList = input.Moderation.ToList();
+            var textsList = input.Text.ToList();
+            var examplesList = input.Example.ToList();
+            var caseSensitivitiesList = input.CaseSense.ToList();
+            var isForbiddenList = input.TermIsForbidden.ToList();
+            var partialMatchesList = input.TermPartialMatches.ToList();
+
+            var languages = new List<object>();
+
+            for (int i = 0; i < languagesList.Count; i++)
+            {
+                var termItems = new List<object>
         {
             new
             {
@@ -51,44 +53,49 @@ public class TermActions: BaseInvocable
             }
         };
 
-            var languageItem = new
+                var languageItem = new
+                {
+                    Language = languagesList[i],
+                    Definition = definitionsList.ElementAtOrDefault(i),
+                    NeedsModeration = moderationList.ElementAtOrDefault(i),
+                    TermItems = termItems
+                };
+
+                languages.Add(languageItem);
+            }
+
+            var bodyObject = new
             {
-                Language = languagesList[i],
-                Definition = definitionsList.ElementAtOrDefault(i),
-                NeedsModeration = moderationList.ElementAtOrDefault(i),
-                TermItems = termItems
+                Created = DateTime.UtcNow,
+                Creator = "API",
+                Modified = DateTime.UtcNow,
+                Modifier = username,
+                Client = input.Client ?? null,
+                Domain = input.Domain ?? null,
+                Languages = languages,
+                Note = input.Note ?? null,
+                Project = input.Project ?? null,
+                Subject = input.Subject ?? null
             };
 
-            languages.Add(languageItem);
+            request.AddJsonBody(bodyObject);
+
+            var response = await client.ExecuteWithErrorHandling(request);
+
+            if (!response.IsSuccessful)
+            {
+                throw new PluginApplicationException($"Error updating term: {response.Content}");
+            }
+
+            return new UpdateTermResponse
+            {
+                Success = true,
+                Message = "Term updated successfully"
+            };
         }
-
-        var bodyObject = new
+        catch (Exception e)
         {
-            Created = DateTime.UtcNow,
-            Creator = "API",
-            Modified = DateTime.UtcNow,
-            Modifier = username,
-            Client = input.Client ?? null,
-            Domain = input.Domain ?? null,
-            Languages = languages,
-            Note = input.Note ?? null,
-            Project = input.Project ?? null,
-            Subject = input.Subject ?? null
-        };
-
-        request.AddJsonBody(bodyObject);
-
-        var response = await client.ExecuteWithErrorHandling(request);
-
-        if (!response.IsSuccessful)
-        {
-            throw new PluginApplicationException($"Error updating term: {response.Content}");
+            throw new PluginApplicationException($"Error updating term: {e.Message}");
         }
-
-        return new UpdateTermResponse
-        {
-            Success = true,
-            Message = "Term updated successfully"
-        };
     }
 }
