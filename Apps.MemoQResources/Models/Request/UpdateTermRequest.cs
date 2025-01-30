@@ -16,7 +16,7 @@ namespace Apps.MemoQResources.Models.Request
         public int EntryId { get; set; }
 
         [Display("Search expression")]
-        public string SearchExpression { get; set; }
+        public string? SearchExpression { get; set; }
 
         [Display("Client")]
         public string? Client { get; set; }
@@ -29,7 +29,7 @@ namespace Apps.MemoQResources.Models.Request
 
         [Display("Desired matching behavior")]
         [StaticDataSource(typeof(MatchingBehaviorDataHandler))]
-        public int Condition { get; set; }
+        public int? Condition { get; set; }
 
         [Display("Language")]
         [StaticDataSource(typeof(TargetLanguageDataHandler))]
