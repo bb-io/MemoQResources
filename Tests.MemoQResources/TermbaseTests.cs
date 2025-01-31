@@ -21,7 +21,7 @@ namespace Tests.MemoQResources
             var request = new UpdateTermRequest
             {
                 Guid = "1366ac93-cf7c-46f1-80da-b0d15ec22c29",
-                EntryId = 19,
+                EntryId = 27,
                 Client = "Client Zhopa",
 
                 Languages = new[] { "eng-GB", "ger" },
@@ -41,6 +41,5 @@ namespace Tests.MemoQResources
 
             Assert.IsTrue(response.Success);
         }
-
     }
 }

@@ -9,6 +9,7 @@ using Apps.MemoQResources.Models.Request;
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Dynamic;
 using Blackbird.Applications.Sdk.Common.Invocation;
+using Newtonsoft.Json;
 using RestSharp;
 
 namespace Apps.MemoQResources.DataSourceHandlers
@@ -25,15 +26,15 @@ namespace Apps.MemoQResources.DataSourceHandlers
 
         public async Task<IEnumerable<DataSourceItem>> GetDataAsync(DataSourceContext context, CancellationToken cancellationToken)
         {
-           
-            var targetLanguage = _input.Languages;
+
+            var targetLanguage = _input.Languages.FirstOrDefault() ?? "eng-GB";
 
             var request = new RestRequest($"memoqserverhttpapi/v1/tbs/{_input.Guid}/search", Method.Post);
             request.AddJsonBody(new
             {
-                Condition = _input.Condition,
-                SearchExpression = _input.SearchExpression,
-                TargetLanguage = new string[] { _input.Languages.First() },
+                Condition = _input.Condition ?? 0,
+                SearchExpression = _input.SearchExpression ?? "term",
+                TargetLanguage = targetLanguage,
                 Limit = 50 
             });
 

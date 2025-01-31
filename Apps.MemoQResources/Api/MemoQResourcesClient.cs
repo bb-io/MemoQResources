@@ -43,8 +43,6 @@ public class MemoQResourcesClient : BlackBirdRestClient
     }
 
 
-
-
     protected override Exception ConfigureErrorException(RestResponse response)
     {
         var error = JsonConvert.DeserializeObject<ErrorDto>(response.Content, JsonSettings);
