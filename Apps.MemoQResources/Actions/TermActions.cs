@@ -27,56 +27,55 @@ public class TermActions : BaseInvocable
             var request = new RestRequest(
                 $"memoqserverhttpapi/v1/tbs/{input.Guid}/entries/{input.EntryId}/update", Method.Post);
             var username = InvocationContext.AuthenticationCredentialsProviders
-                        .FirstOrDefault(p => p.KeyName == "username").Value;
-            var languagesList = input.Languages.ToList();
-            var definitionsList = input.Definition.ToList();
-            var moderationList = input.Moderation.ToList();
-            var textsList = input.Text.ToList();
-            var examplesList = input.Example.ToList();
-            var caseSensitivitiesList = input.CaseSense.ToList();
-            var isForbiddenList = input.TermIsForbidden.ToList();
-            var partialMatchesList = input.TermPartialMatches.ToList();
+                        .FirstOrDefault(p => p.KeyName == "username")?.Value;
 
             var languages = new List<object>();
 
-            for (int i = 0; i < languagesList.Count; i++)
+            for (int i = 0; i < input.Languages.Count(); i++)
             {
-                var termItems = new List<object>
-        {
-            new
-            {
-                CaseSense = caseSensitivitiesList.ElementAtOrDefault(i),
-                Example = examplesList.ElementAtOrDefault(i),
-                IsForbidden = isForbiddenList.ElementAtOrDefault(i),
-                PartialMatch = partialMatchesList.ElementAtOrDefault(i),
-                Text = textsList.ElementAtOrDefault(i)
-            }
-        };
+                var termItem = new Dictionary<string, object>();
 
-                var languageItem = new
+                if (input.CaseSense?.ElementAtOrDefault(i) != null)
+                    termItem["CaseSense"] = input.CaseSense.ElementAtOrDefault(i);
+                if (input.Example?.ElementAtOrDefault(i) != null)
+                    termItem["Example"] = input.Example.ElementAtOrDefault(i);
+                if (input.TermIsForbidden?.ElementAtOrDefault(i) != null)
+                    termItem["IsForbidden"] = input.TermIsForbidden.ElementAtOrDefault(i);
+                if (input.TermPartialMatches?.ElementAtOrDefault(i) != null)
+                    termItem["PartialMatch"] = input.TermPartialMatches.ElementAtOrDefault(i);
+                if (!string.IsNullOrWhiteSpace(input.Text.ElementAtOrDefault(i)))
+                    termItem["Text"] = input.Text.ElementAtOrDefault(i);
+
+                var languageItem = new Dictionary<string, object>
                 {
-                    Language = languagesList[i],
-                    Definition = definitionsList.ElementAtOrDefault(i),
-                    NeedsModeration = moderationList.ElementAtOrDefault(i),
-                    TermItems = termItems
+                    ["Language"] = input.Languages.ElementAt(i)
                 };
+
+                if (input.Definition?.ElementAtOrDefault(i) != null)
+                    languageItem["Definition"] = input.Definition.ElementAtOrDefault(i);
+                if (input.Moderation?.ElementAtOrDefault(i) != null)
+                    languageItem["NeedsModeration"] = input.Moderation.ElementAtOrDefault(i);
+
+                if (termItem.Count > 0)
+                    languageItem["TermItems"] = new List<object> { termItem };
 
                 languages.Add(languageItem);
             }
 
-            var bodyObject = new
+            var bodyObject = new Dictionary<string, object>
             {
-                Created = DateTime.UtcNow,
-                Creator = "API",
-                Modified = DateTime.UtcNow,
-                Modifier = username,
-                Client = input.Client ?? null,
-                Domain = input.Domain ?? null,
-                Languages = languages,
-                Note = input.Note ?? null,
-                Project = input.Project ?? null,
-                Subject = input.Subject ?? null
+                ["Created"] = DateTime.UtcNow,
+                ["Creator"] = "API",
+                ["Modified"] = DateTime.UtcNow,
+                ["Modifier"] = username,
+                ["Languages"] = languages
             };
+
+            if (!string.IsNullOrWhiteSpace(input.Client)) bodyObject["Client"] = input.Client;
+            if (!string.IsNullOrWhiteSpace(input.Domain)) bodyObject["Domain"] = input.Domain;
+            if (!string.IsNullOrWhiteSpace(input.Note)) bodyObject["Note"] = input.Note;
+            if (!string.IsNullOrWhiteSpace(input.Project)) bodyObject["Project"] = input.Project;
+            if (!string.IsNullOrWhiteSpace(input.Subject)) bodyObject["Subject"] = input.Subject;
 
             request.AddJsonBody(bodyObject);
 
