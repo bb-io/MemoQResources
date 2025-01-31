@@ -13,6 +13,7 @@ namespace Apps.MemoQResources.Models.Request
         public string Guid { get; set; }
 
         [Display("Entry ID")]
+        [DataSource(typeof(TermbaseEntryDataHandler))]
         public int EntryId { get; set; }
 
         [Display("Search expression")]
