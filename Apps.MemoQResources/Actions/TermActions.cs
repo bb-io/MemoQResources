@@ -46,8 +46,6 @@ public class TermActions : BaseInvocable
                 DefaultIgnoreCondition = JsonIgnoreCondition.Never
             };
             var serializedBody = JsonSerializer.Serialize(cleanedDictionary, jsonOptions);
-            Console.WriteLine("Cleaned Request Body:");
-            Console.WriteLine(serializedBody);
 
             var updateRequest = new RestRequest(
                 $"memoqserverhttpapi/v1/tbs/{input.Guid}/entries/{input.EntryId}/update", Method.Post);
@@ -192,8 +190,6 @@ public class TermActions : BaseInvocable
                     cleaned[kvp.Key] = kvp.Value;
             }
         }
-
         return cleaned;
     }
-
 }

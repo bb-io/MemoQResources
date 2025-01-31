@@ -8,15 +8,12 @@ namespace Apps.MemoQResources.Models.Request
 {
     public class UpdateTermRequest
     {
-        [Display("Termbase GUID")]
+        [Display("Termbase ID")]
         [DataSource(typeof(TermbaseDataHandler))]
         public string Guid { get; set; }
 
         [Display("Entry ID")]
         public string EntryId { get; set; }
-
-        //Check the dispay names
-        //make just for one language
 
         [Display("Client")]
         public string? Client { get; set; }
@@ -27,11 +24,11 @@ namespace Apps.MemoQResources.Models.Request
         [Display("Language definition")]
         public string? Definition { get; set; }
 
-        [Display("Language")]
+        [Display("Target language")]
         [StaticDataSource(typeof(TargetLanguageDataHandler))]
         public string Language { get; set; }
 
-        [Display("Text")]
+        [Display("Text of the term")]
         public string Text { get; set; }
 
         [Display("Case sensitivity")]
@@ -44,14 +41,14 @@ namespace Apps.MemoQResources.Models.Request
         [Display("Needs moderation")]
         public bool? Moderation { get; set; }
 
-        [Display("Partial match")]
+        [Display("Partial matches", Description = "Defines the degree to which partial matches are allowed against this term.")]
         [StaticDataSource(typeof(PartialMatchDegreeDataHandler))]
         public int? TermPartialMatches { get; set; }
 
-        [Display("Example sentence")]
+        [Display("Example of term")]
         public string? Example { get; set; }
 
-        [Display("Note")]
+        [Display("Notey")]
         public string? Note { get; set; }
 
         [Display("Project")]
