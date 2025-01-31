@@ -32,7 +32,7 @@ namespace Apps.MemoQResources.Models.Request
         [StaticDataSource(typeof(MatchingBehaviorDataHandler))]
         public int? Condition { get; set; }
 
-        [Display("Language")]
+        [Display("Languages")]
         [StaticDataSource(typeof(TargetLanguageDataHandler))]
         public IEnumerable<string> Languages { get; set; }
 
