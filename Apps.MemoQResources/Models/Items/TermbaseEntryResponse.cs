@@ -17,7 +17,7 @@ namespace Apps.MemoQResources.Models.Items
         public string Client { get; set; }
         public string Domain { get; set; }
 
-        [Display("Image Caption")]
+        [Display("Image caption")]
         public string ImageCaption { get; set; }
         public string Image { get; set; }
         public List<LanguageItemDto> Languages { get; set; }
@@ -34,7 +34,7 @@ namespace Apps.MemoQResources.Models.Items
         [Display("Needs moderation")]
         public bool NeedsModeration { get; set; }
 
-        [Display("Term Items")]
+        [Display("Term items")]
         public List<TermItemDto> TermItems { get; set; }
     }
     public class TermItemDto
