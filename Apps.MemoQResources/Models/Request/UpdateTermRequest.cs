@@ -19,6 +19,10 @@ namespace Apps.MemoQResources.Models.Request
         [Display("Search expression")]
         public string? SearchExpression { get; set; }
 
+        [Display("Search expression language")]
+        [StaticDataSource(typeof(TargetLanguageDataHandler))]
+        public string? SearchExpressionLanguage { get; set; }
+
         [Display("Client")]
         public string? Client { get; set; }
 
