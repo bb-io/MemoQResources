@@ -18,7 +18,6 @@ namespace Tests.MemoQResources
 
         [TestMethod]
         public async Task DoesNotValidateIncorrectConnection()
-
         {
             var newCreds = Creds.Select(x => new AuthenticationCredentialsProvider(x.KeyName, x.Value + "_incorrect"));
             var validator = new ConnectionValidator();

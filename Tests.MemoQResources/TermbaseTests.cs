@@ -17,25 +17,23 @@ namespace Tests.MemoQResources
         [TestMethod]
         public async Task UpdateTermInTermbaseReturnsSuccess()
         {
-           var action = new TermActions(InvocationContext);
+            var action = new TermActions(InvocationContext);
             var request = new UpdateTermRequest
             {
                 Guid = "1366ac93-cf7c-46f1-80da-b0d15ec22c29",
-                EntryId = 27,
-                Client = "Client Zhopa",
-
-                Languages = new[] { "eng-GB", "ger" },
-                Definition = new[] { "Hello1234134", "Guten Tag141341234" },
-                Moderation = new[] { false, false },
-
-                Text = new[] { "Helloasdasd", "Guten Tag" },
-                Example = new[] { "WHOLE NEW TEXT", "Guten Tag341333!" },
-                CaseSense = new[] { 1, 1 },
-                TermIsForbidden = new[] { false, false },
-                TermPartialMatches = new[] { 1, 1 },
-                Note = "First greeting entry",
-                Project = "Test Projectq5123541",
-                Subject = "Test Subject123412341234"
+                EntryId = "26",
+                Client = "Client Dinero",
+                Language = "eng-GB",
+                Definition = "Hello1234134",
+                Moderation = false,
+                Text = "Helloasdasd",
+                Example = "WHOLE NEW TEXT",
+                CaseSense = 1,
+                TermIsForbidden = false,
+                TermPartialMatches = 1,
+                Note = "First greeting entry121212",
+                Project = "Best project jajajajajaja121212",
+                Subject = "Best project jajajajajaja"
             };
             var response = await action.UpdateTerm(request);
 

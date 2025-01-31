@@ -29,9 +29,10 @@ public class ConnectionDefinition : IConnectionDefinition
                 },
                 new("loginMode")
                 {
-                    DisplayName = "LoginMode",
+                    DisplayName = "Login Mode",
                     Description = "0 = MemoQServerUser, 1 = WindowsUser, 2 = LanguageTerminal, 3 = OidcUser (by default 0)."
                 }
+                //dropdown add (check the need of login mode)
         }   }
     };
 

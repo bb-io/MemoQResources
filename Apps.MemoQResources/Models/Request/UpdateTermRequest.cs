@@ -13,15 +13,10 @@ namespace Apps.MemoQResources.Models.Request
         public string Guid { get; set; }
 
         [Display("Entry ID")]
-        [DataSource(typeof(TermbaseEntryDataHandler))]
-        public int EntryId { get; set; }
+        public string EntryId { get; set; }
 
-        [Display("Search expression")]
-        public string? SearchExpression { get; set; }
-
-        [Display("Search expression language")]
-        [StaticDataSource(typeof(TargetLanguageDataHandler))]
-        public string? SearchExpressionLanguage { get; set; }
+        //Check the dispay names
+        //make just for one language
 
         [Display("Client")]
         public string? Client { get; set; }
@@ -30,35 +25,31 @@ namespace Apps.MemoQResources.Models.Request
         public string? Domain { get; set; }
 
         [Display("Language definition")]
-        public IEnumerable<string>? Definition { get; set; }
+        public string? Definition { get; set; }
 
-        [Display("Desired matching behavior")]
-        [StaticDataSource(typeof(MatchingBehaviorDataHandler))]
-        public int? Condition { get; set; }
-
-        [Display("Languages")]
+        [Display("Language")]
         [StaticDataSource(typeof(TargetLanguageDataHandler))]
-        public IEnumerable<string> Languages { get; set; }
+        public string Language { get; set; }
 
         [Display("Text")]
-        public IEnumerable<string> Text { get; set; }
+        public string Text { get; set; }
 
         [Display("Case sensitivity")]
         [StaticDataSource(typeof(CaseSensitivityLevelDataHandler))]
-        public IEnumerable<int>? CaseSense { get; set; }
+        public int? CaseSense { get; set; }
 
         [Display("Is forbidden")]
-        public IEnumerable<bool>? TermIsForbidden { get; set; }
+        public bool? TermIsForbidden { get; set; }
 
         [Display("Needs moderation")]
-        public IEnumerable<bool>? Moderation { get; set; }
+        public bool? Moderation { get; set; }
 
         [Display("Partial match")]
         [StaticDataSource(typeof(PartialMatchDegreeDataHandler))]
-        public IEnumerable<int>? TermPartialMatches { get; set; }
+        public int? TermPartialMatches { get; set; }
 
         [Display("Example sentence")]
-        public IEnumerable<string>? Example { get; set; }
+        public string? Example { get; set; }
 
         [Display("Note")]
         public string? Note { get; set; }

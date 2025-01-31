@@ -14,7 +14,7 @@ public class MemoQResourcesClient : BlackBirdRestClient
     private string? _token;
 
     public MemoQResourcesClient(IEnumerable<AuthenticationCredentialsProvider> creds)
-         : base(new RestClientOptions { ThrowOnAnyError = false, BaseUrl = new Uri(creds.First(p => p.KeyName == "url").Value) })
+         :base(new RestClientOptions { ThrowOnAnyError = false, BaseUrl = new Uri(creds.First(p => p.KeyName == "url").Value) })
     {
         var token = GetAccessToken(creds);
         this.AddDefaultHeader("Authorization", $"MQS-API {token}");
