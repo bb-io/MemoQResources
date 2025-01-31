@@ -15,13 +15,13 @@ namespace Apps.MemoQResources.Models.Request
         [Display("Entry ID")]
         public string EntryId { get; set; }
 
-        [Display("Client")]
+        [Display("Client", Description = "Client of termbase entry")]
         public string? Client { get; set; }
 
-        [Display("Domain")]
+        [Display("Domain", Description = "Domain of termbase entry")]
         public string? Domain { get; set; }
 
-        [Display("Language definition")]
+        [Display("Term definition")]
         public string? Definition { get; set; }
 
         [Display("Target language")]
@@ -31,7 +31,7 @@ namespace Apps.MemoQResources.Models.Request
         [Display("Text of the term")]
         public string Text { get; set; }
 
-        [Display("Case sensitivity")]
+        [Display("Case sensitivity", Description = "Defines the case sensitivity level of the term")]
         [StaticDataSource(typeof(CaseSensitivityLevelDataHandler))]
         public int? CaseSense { get; set; }
 
@@ -48,13 +48,13 @@ namespace Apps.MemoQResources.Models.Request
         [Display("Example of term")]
         public string? Example { get; set; }
 
-        [Display("Notey")]
+        [Display("Note", Description = "Note of termbase entry")]
         public string? Note { get; set; }
 
-        [Display("Project")]
+        [Display("Project", Description = "Project of termbase entry")]
         public string? Project { get; set; }
 
-        [Display("Subject")]
+        [Display("Subject", Description = "Subject of termbase entry")]
         public string? Subject { get; set; }
     }
 }
