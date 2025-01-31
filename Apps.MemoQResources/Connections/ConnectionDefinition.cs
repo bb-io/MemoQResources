@@ -30,9 +30,10 @@ public class ConnectionDefinition : IConnectionDefinition
                 new("loginMode")
                 {
                     DisplayName = "Login Mode",
-                    Description = "0 = MemoQServerUser, 1 = WindowsUser, 2 = LanguageTerminal, 3 = OidcUser (by default 0)."
+                    Description = "Login mode for the users",
+                    DataItems = [new ("0", "MemoQ Server User"),
+                                 new ("1", "Windows User" )]
                 }
-                //dropdown add (check the need of login mode)
         }   }
     };
 
@@ -42,8 +43,6 @@ public class ConnectionDefinition : IConnectionDefinition
         yield return new AuthenticationCredentialsProvider("url", values["url"]);
         yield return new AuthenticationCredentialsProvider("username", values["username"]);
         yield return new AuthenticationCredentialsProvider("password", values["password"]);
-
-        var loginMode = values.ContainsKey("loginMode") ? values["loginMode"] : "0";
-        yield return new AuthenticationCredentialsProvider("loginMode", loginMode);
+        yield return new AuthenticationCredentialsProvider("loginMode", values["loginMode"]);
     }
 }
