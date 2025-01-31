@@ -19,7 +19,7 @@ namespace Apps.MemoQResources.Polling
             [PollingEventParameter] TermbaseInput input)
         {
             var client = new MemoQResourcesClient(InvocationContext.AuthenticationCredentialsProviders);
-            var requestUrl = $"memoqserverhttpapi/v1/tbs/{input.TbId}";
+            var requestUrl = $"/tbs/{input.TbId}";
 
             var restRequest = new RestRequest(requestUrl, Method.Get);
             var response = await client.ExecuteAsync<TermbaseUpdateResponse>(restRequest);
