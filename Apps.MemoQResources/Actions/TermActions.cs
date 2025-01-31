@@ -55,10 +55,15 @@ public class TermActions : BaseInvocable
             if (!updateResponse.IsSuccessful)
                 throw new PluginApplicationException($"Error updating term: {updateResponse.Content}");
 
+            var getUpdatedRequest = new RestRequest($"memoqserverhttpapi/v1/tbs/{input.Guid}/entries/{input.EntryId}", Method.Get);
+            var updatedEntry = await client.ExecuteWithErrorHandling<TermbaseEntryResponse>(getUpdatedRequest);
+            if (updatedEntry == null)
+                throw new PluginApplicationException("Failed to fetch the updated entry.");
+
+
             return new UpdateTermResponse
             {
-                Success = true,
-                Message = "Term updated successfully"
+                UpdatedEntry = updatedEntry
             };
         }
         catch (Exception e)

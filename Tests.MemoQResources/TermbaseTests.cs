@@ -22,22 +22,23 @@ namespace Tests.MemoQResources
             {
                 Guid = "1366ac93-cf7c-46f1-80da-b0d15ec22c29",
                 EntryId = "26",
-                Client = "Client Dinero",
-                Language = "eng-GB",
-                Definition = "Hello1234134",
+                Client = "Artem",
+                Language = "ger",
+                Definition = "Hello",
                 Moderation = false,
-                Text = "Helloasdasd",
-                Example = "WHOLE NEW TEXT",
+                Text = "Hello aligator",
+                Example = "WHOLE NEW TEXT BABY",
                 CaseSense = 1,
                 TermIsForbidden = false,
                 TermPartialMatches = 1,
-                Note = "First greeting entry121212",
-                Project = "Best project jajajajajaja121212",
-                Subject = "Best project jajajajajaja"
+                Note = "First greeting entry maybe",
+                Project = "Best project ",
+                Subject = "Best project "
             };
             var response = await action.UpdateTerm(request);
 
-            Assert.IsTrue(response.Success);
+            Assert.IsNotNull(response);
+            Console.WriteLine($"{response.UpdatedEntry.Id} - {response.UpdatedEntry.Note} -  {response.UpdatedEntry.Project}");
         }
     }
 }
