@@ -35,7 +35,7 @@ namespace Apps.MemoQResources.Models.Items
         public bool NeedsModeration { get; set; }
 
         [Display("Term items")]
-        public List<TermItemDto> TermItems { get; set; }
+        public IEnumerable<TermItemDto> TermItems { get; set; }
     }
     public class TermItemDto
     {

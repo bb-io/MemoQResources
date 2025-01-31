@@ -11,7 +11,7 @@ namespace Apps.MemoQResources.DataSourceHandlers
     {
         public async Task<IEnumerable<DataSourceItem>> GetDataAsync(DataSourceContext context, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("memoqserverhttpapi/v1/tbs", Method.Get);
+            var request = new RestRequest("/tbs", Method.Get);
 
             var response = await Client.ExecuteWithErrorHandling<List<TermbaseModel>>(request);
 

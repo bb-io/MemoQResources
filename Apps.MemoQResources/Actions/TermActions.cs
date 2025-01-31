@@ -24,10 +24,8 @@ public class TermActions : BaseInvocable
     [Action("Update term", Description = "Updates a termbase entry")]
     public async Task<UpdateTermResponse> UpdateTerm([ActionParameter] UpdateTermRequest input)
     {
-        try
-        {
             var client = new MemoQResourcesClient(InvocationContext.AuthenticationCredentialsProviders);
-            var getRequest = new RestRequest($"memoqserverhttpapi/v1/tbs/{input.Guid}/entries/{input.EntryId}", Method.Get);
+            var getRequest = new RestRequest($"/tbs/{input.Guid}/entries/{input.EntryId}", Method.Get);
 
             var existingEntry = await client.ExecuteWithErrorHandling<TermbaseEntryResponse>(getRequest);
             if (existingEntry == null)
@@ -48,28 +46,22 @@ public class TermActions : BaseInvocable
             var serializedBody = JsonSerializer.Serialize(cleanedDictionary, jsonOptions);
 
             var updateRequest = new RestRequest(
-                $"memoqserverhttpapi/v1/tbs/{input.Guid}/entries/{input.EntryId}/update", Method.Post);
+                $"/tbs/{input.Guid}/entries/{input.EntryId}/update", Method.Post);
             updateRequest.AddStringBody(serializedBody, ContentType.Json);
 
             var updateResponse = await client.ExecuteWithErrorHandling(updateRequest);
             if (!updateResponse.IsSuccessful)
                 throw new PluginApplicationException($"Error updating term: {updateResponse.Content}");
 
-            var getUpdatedRequest = new RestRequest($"memoqserverhttpapi/v1/tbs/{input.Guid}/entries/{input.EntryId}", Method.Get);
+            var getUpdatedRequest = new RestRequest($"/tbs/{input.Guid}/entries/{input.EntryId}", Method.Get);
             var updatedEntry = await client.ExecuteWithErrorHandling<TermbaseEntryResponse>(getUpdatedRequest);
             if (updatedEntry == null)
                 throw new PluginApplicationException("Failed to fetch the updated entry.");
-
 
             return new UpdateTermResponse
             {
                 UpdatedEntry = updatedEntry
             };
-        }
-        catch (Exception e)
-        {
-            throw new PluginApplicationException($"Error updating term: {e.Message}");
-        }
     }
 
     private Dictionary<string, object> BuildUpdateDictionary(TermbaseEntryResponse entry,
