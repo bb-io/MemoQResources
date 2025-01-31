@@ -42,6 +42,7 @@ namespace Tests.MemoQResources
             var result = await pollingHandler.OnTermsAddedOrUpdated(request, input);
             Assert.IsFalse(result.FlyBird);
             Assert.IsFalse(result.Memory.Triggered);
+            Assert.IsNotNull(result.Memory.LastPollingTime);
             Console.WriteLine($"LastPollingTime: {result.Memory.LastPollingTime}");
         }
     }

@@ -4,9 +4,40 @@ Blackbird is the new automation backbone for the language technology industry. B
 
 ## Introduction
 
-<!-- begin docs -->
+memoQ Server Resources API is a REST style interface for a set of functionalities provided by memoQ server. This interface makes memoQ server be accessible from many kinds of client applications let they be a desktop, mobile or web applications. The client only needs to send simple, easy-to-assemble HTTP requests and consume the responses. Information traveling back and forth between the client and the server is typically JSON serialized. Currently the API supports manipulating translation memories (TM) and termbases (TB).
 
 Documentation coming soon.
+
+## Before setting up
+
+Before you can connect you need to make sure that:
+
+- You have a memoQ server installed and running.
+- You have a user account on the memoQ server.
+- You have the memoQ server API enabled.
+
+## Setting up
+
+1. Open the Blackbird.io platform.
+2. Go to the `Apps` section and search for memoQ Resources.
+3. Click on the `Add Connection` button.
+4. Name your connection.
+5. Fill in the `Server URL` field with the URL of your memoQ server.
+6. Fill in the `User Name` field with your memoQ server user name.
+7. Fill in the `Password` field with your memoQ server password.
+8. Choose the `Login mode` you want to use: 0 = MemoQServerUser, 1 = WindowsUser, 2 = LanguageTerminal, 3 = OidcUser (by default 0).
+9. Click on the `Connect` button.
+10. Confirm that the connection has appeared and the status is `Connected`
+
+## Actions
+
+### Termbase
+
+- **Update term**  Updates a specific term in a termbase.
+
+## Events
+
+- **On terms added or updated**  Triggers when a term is added or updated in a termbase.
 
 ## Feedback
 

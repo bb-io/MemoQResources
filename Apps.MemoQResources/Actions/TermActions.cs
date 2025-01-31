@@ -18,7 +18,7 @@ public class TermActions : BaseInvocable
     {
     }
 
-    [Action("Update term", Description = "Updates a termbase entry in memoQ")]
+    [Action("Update term", Description = "Updates a termbase entry")]
     public async Task<UpdateTermResponse> UpdateTerm([ActionParameter] UpdateTermRequest input)
     {
         try
