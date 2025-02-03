@@ -6,7 +6,6 @@ Blackbird is the new automation backbone for the language technology industry. B
 
 memoQ Server Resources API is a REST style interface for a set of functionalities provided by memoQ server. This interface makes memoQ server be accessible from many kinds of client applications let they be a desktop, mobile or web applications. The client only needs to send simple, easy-to-assemble HTTP requests and consume the responses. Information traveling back and forth between the client and the server is typically JSON serialized. Currently the API supports manipulating translation memories (TM) and termbases (TB).
 
-Documentation coming soon.
 
 ## Before setting up
 
