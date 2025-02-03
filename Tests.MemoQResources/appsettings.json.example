@@ -1,0 +1,9 @@
+{
+    "ConnectionDefinition": {
+        "username": "",
+        "password": "",
+        "loginMode": "",
+        "url": ""
+    },
+    "TestFolder": ""
+}
