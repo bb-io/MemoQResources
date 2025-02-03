@@ -25,7 +25,7 @@ Before you can connect you need to make sure that:
 5. Fill in the `Server URL` field with the URL of your memoQ server.
 6. Fill in the `User Name` field with your memoQ server user name.
 7. Fill in the `Password` field with your memoQ server password.
-8. Choose the `Login mode` you want to use: 0 = MemoQServerUser, 1 = WindowsUser, 2 = LanguageTerminal, 3 = OidcUser (by default 0).
+8. Choose the `Login mode` you want to use: 0 = MemoQServerUser, 1 = WindowsUser.
 9. Click on the `Connect` button.
 10. Confirm that the connection has appeared and the status is `Connected`
 
