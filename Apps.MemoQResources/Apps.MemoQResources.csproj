@@ -5,15 +5,13 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <Product>memoQ Resources</Product>
-        <Description>Computer-assisted translation</Description>
-        <Version>1.0.1</Version>
+        <Description>memoQ Resources API is a REST style interface for a set of functionalities provided by memoQ server. The API supports manipulating translation memories (TM) and termbases (TB).</Description>
+        <Version>1.0.2</Version>
         <AssemblyName>Apps.MemoQResources</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Remove="image\**" />
-      <EmbeddedResource Remove="image\**" />
-      <None Remove="image\**" />
+		<EmbeddedResource CopyToOutputDirectory="Always" Include="image\icon.png" />
     </ItemGroup>
 
     <ItemGroup>

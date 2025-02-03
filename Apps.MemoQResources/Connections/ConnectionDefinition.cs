@@ -29,7 +29,7 @@ public class ConnectionDefinition : IConnectionDefinition
                 },
                 new("loginMode")
                 {
-                    DisplayName = "Login Mode",
+                    DisplayName = "Login mode",
                     Description = "Login mode for the users",
                     DataItems = [new ("0", "MemoQ Server User"),
                                  new ("1", "Windows User" )]
