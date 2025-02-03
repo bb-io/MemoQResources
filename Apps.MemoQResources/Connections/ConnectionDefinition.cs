@@ -16,7 +16,7 @@ public class ConnectionDefinition : IConnectionDefinition
                 new("url")
                 {
                     DisplayName = "Server URL",
-                    Description = "For example: https://my-memoq-server:8081/memoqserverhttpapi"
+                    Description = "For example: https://my-memoq-server:8081"
                 },
                 new("username")
                 {
