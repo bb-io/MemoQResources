@@ -36,7 +36,7 @@ Before you can connect you need to make sure that:
 
 ## Events
 
-- **On terms added or updated**  Triggers when a term is added or updated in a termbase.
+- **On termbase modified**  Triggeres when a termbase is modified.
 
 ## Feedback
 
