@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <Product>memoQ Resources</Product>
         <Description>The app supports manipulating translation memories (TM) and termbases (TB).</Description>
-        <Version>1.0.3</Version>
+        <Version>1.0.4</Version>
         <AssemblyName>Apps.MemoQResources</AssemblyName>
     </PropertyGroup>
 

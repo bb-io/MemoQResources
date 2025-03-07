@@ -13,7 +13,7 @@ namespace Apps.MemoQResources.Polling
     {
         public TermbasePolling(InvocationContext invocationContext) : base(invocationContext) { }
 
-        [PollingEvent("On terms added or updated", "Triggered when new terms are added or existing terms are updated")]
+        [PollingEvent("On termbase modified", "Triggeres when a termbase is modified")]
         public async Task<PollingEventResponse<TermbaseMemory, TermbaseUpdateResponse>> OnTermsAddedOrUpdated(
             PollingEventRequest<TermbaseMemory> request,
             [PollingEventParameter] TermbaseInput input)
