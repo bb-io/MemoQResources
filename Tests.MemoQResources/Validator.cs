@@ -13,6 +13,7 @@ namespace Tests.MemoQResources
             var validator = new ConnectionValidator();
 
             var result = await validator.ValidateConnection(Creds, CancellationToken.None);
+            Console.Write(result.Message);
             Assert.IsTrue(result.IsValid);
         }
 
@@ -22,6 +23,7 @@ namespace Tests.MemoQResources
             var newCreds = Creds.Select(x => new AuthenticationCredentialsProvider(x.KeyName, x.Value + "_incorrect"));
             var validator = new ConnectionValidator();
             var result = await validator.ValidateConnection(newCreds, CancellationToken.None);
+            Console.Write(result.Message);
             Assert.IsFalse(result.IsValid);
         }
     }
