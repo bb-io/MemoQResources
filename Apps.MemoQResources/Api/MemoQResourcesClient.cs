@@ -46,7 +46,15 @@ public class MemoQResourcesClient : BlackBirdRestClient
     protected override Exception ConfigureErrorException(RestResponse response)
     {
         var error = JsonConvert.DeserializeObject<ErrorDto>(response.Content, JsonSettings);
-        return new PluginApplicationException($"Error message: {response.Content}; StatusCode: {response.StatusCode}");
+        if (error?.Message == null)
+        {
+            return new PluginApplicationException($"Error message: {response.Content}; StatusCode: {response.StatusCode}");
+        }
+        if (error?.Message == "The request is invalid.")
+        {
+            return new PluginMisconfigurationException($"One or more of the given input values were incorrect. Please check if your IDs or language codes are compatible with what memoQ expects.");
+        }
+        return new PluginApplicationException($"{error?.Message}");
     }
 
     private string GetAccessToken(IEnumerable<AuthenticationCredentialsProvider> creds)
