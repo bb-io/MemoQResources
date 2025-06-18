@@ -18,6 +18,7 @@ namespace Tests.MemoQResources
                 Console.WriteLine($"{ item.Value} - {item.DisplayName}");
                 Assert.IsNotNull(item.Value);
             }
+            Assert.IsTrue(response.Count() > 0);
         }
     }
 }
