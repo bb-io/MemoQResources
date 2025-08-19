@@ -99,7 +99,7 @@ public class TermbaseActions : BaseInvocable
         return new ListTermBaseResponse { Termbases = list };
     }
 
-    [Action("Create term base entry", Description = "Creates a term base entry in the specified TB")]
+    [Action("Create termbase entry", Description = "Creates a termbase entry in the specified TB")]
     public async Task<CreateTermResponse> CreateTerm(
     [ActionParameter] CreateTermbaseEntryRequest input)
     {
