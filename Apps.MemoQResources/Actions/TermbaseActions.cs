@@ -11,13 +11,14 @@ using Blackbird.Applications.Sdk.Common.Connections;
 using Blackbird.Applications.Sdk.Common.Exceptions;
 using Blackbird.Applications.Sdk.Common.Invocation;
 using RestSharp;
+using System.ComponentModel;
 
 namespace Apps.MemoQResources.Actions;
 
 [ActionList]
-public class TermActions : BaseInvocable
+public class TermbaseActions : BaseInvocable
 {
-    public TermActions(InvocationContext invocationContext) : base(invocationContext)
+    public TermbaseActions(InvocationContext invocationContext) : base(invocationContext)
     {
     }
 
@@ -62,6 +63,130 @@ public class TermActions : BaseInvocable
             {
                 UpdatedEntry = updatedEntry
             };
+    }
+
+    [Action("Search termbases", Description = "Gets termbases from memoQ resource server.")]
+    public async Task<ListTermBaseResponse> SearchTermbases([ActionParameter] ListTermBaseRequest input)
+    {
+        var client = new MemoQResourcesClient(InvocationContext.AuthenticationCredentialsProviders);
+
+        var request = new RestRequest("/tbs", Method.Get);
+
+        if (input.Languages != null)
+        {
+            var langs = input.Languages.Where(s => !string.IsNullOrWhiteSpace(s)).ToArray();
+            for (int i = 0; i < langs.Length; i++)
+                request.AddQueryParameter($"lang[{i}]", langs[i]);
+        }
+
+        var list = await client.ExecuteWithErrorHandling<List<TermBaseListItem>>(request)
+                   ?? throw new PluginApplicationException("Failed to fetch termbases.");
+
+        if (!string.IsNullOrWhiteSpace(input.ExactName))
+        {
+            list = list
+                .Where(x => string.Equals(x.FriendlyName, input.ExactName, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+        else if (!string.IsNullOrWhiteSpace(input.NameContains))
+        {
+            list = list
+                .Where(x => (x.FriendlyName ?? string.Empty)
+                    .Contains(input.NameContains, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+
+        return new ListTermBaseResponse { Termbases = list };
+    }
+
+    [Action("Create term base entry", Description = "Creates a term base entry in the specified TB")]
+    public async Task<CreateTermResponse> CreateTerm(
+    [ActionParameter] CreateTermbaseEntryRequest input)
+    {
+        if (string.IsNullOrWhiteSpace(input.Guid))
+            throw new PluginMisconfigurationException("Termbase ID is required.");
+        if (string.IsNullOrWhiteSpace(input.Language))
+            throw new PluginMisconfigurationException("Language is required.");
+        if (string.IsNullOrWhiteSpace(input.Text))
+            throw new PluginMisconfigurationException("Text is required.");
+
+        var client = new MemoQResourcesClient(InvocationContext.AuthenticationCredentialsProviders);
+
+        int? caseSense = ToNullableInt(input.CaseSense, "Case sensitivity");
+        int? partialMatch = ToNullableInt(input.PartialMatch, "Partial match");
+
+        var languages = new List<Dictionary<string, object?>>
+    {
+        new()
+        {
+            ["Language"] = input.Language,
+            ["Definition"] = input.Definition,
+            ["NeedsModeration"] = input.NeedsModeration,
+            ["TermItems"] = new List<Dictionary<string, object?>>
+            {
+                new()
+                {
+                    ["Text"] = input.Text,
+                    ["Example"] = input.Example,
+                    ["CaseSense"] = caseSense,
+                    ["PartialMatch"] = partialMatch,
+                    ["IsForbidden"] = input.IsForbidden
+                }
+            }
+        }
+    };
+
+        var body = new Dictionary<string, object?>
+        {
+            ["Client"] = input.Client,
+            ["Domain"] = input.Domain,
+            ["Note"] = input.Note,
+            ["Project"] = input.Project,
+            ["Subject"] = input.Subject,
+            ["Languages"] = languages
+        };
+        var cleaned = RemoveNullValues(body.ToDictionary(k => k.Key, v => (object?)v.Value ?? null!));
+
+        var request = new RestRequest($"/tbs/{input.Guid}/entries/create", Method.Post);
+        request.AddHeader("Accept", "application/json");
+        request.AddQueryParameter("returnNewEntry", "true");
+        request.AddJsonBody(cleaned);
+
+        var created = await client.ExecuteWithErrorHandling<TermbaseEntryResponse>(request);
+        if (created == null)
+            throw new PluginApplicationException("The API did not return the created entry.");
+
+        return new CreateTermResponse { CreatedEntry = created };
+    }
+
+    [Action("Delete termbase entry", Description = "Deletes a termbase entry ")]
+    public async Task<DeleteTermbaseEntryResponse> DeleteTermbaseEntry([ActionParameter] DeleteTermbaseEntryRequest input)
+    {
+        if (string.IsNullOrWhiteSpace(input.Guid))
+            throw new PluginMisconfigurationException("Termbase ID is required.");
+        if (string.IsNullOrEmpty(input.EntryId))
+            throw new PluginMisconfigurationException("Entry ID must be a positive integer.");
+
+        var client = new MemoQResourcesClient(InvocationContext.AuthenticationCredentialsProviders);
+        var request = new RestRequest($"/tbs/{input.Guid}/entries/{input.EntryId}/delete", Method.Post);
+
+        var resp = await client.ExecuteWithErrorHandling(request);
+        if (!resp.IsSuccessful)
+            throw new PluginApplicationException($"Failed to delete entry {input.EntryId} in TB {input.Guid}: {resp.Content}");
+
+        return new DeleteTermbaseEntryResponse { Deleted = true };
+    }
+
+
+    private static int? ToNullableInt(string? s, string fieldName)
+    {
+        if (string.IsNullOrWhiteSpace(s)) return null;
+
+        if (int.TryParse(s.Trim(), out var n)) return n;
+        var digits = new string(s.Where(char.IsDigit).ToArray());
+        if (int.TryParse(digits, out var m)) return m;
+
+        throw new PluginMisconfigurationException($"{fieldName} must be a number.");
     }
 
     private Dictionary<string, object> BuildUpdateDictionary(TermbaseEntryResponse entry,

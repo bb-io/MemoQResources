@@ -13,6 +13,8 @@ namespace Apps.MemoQResources.Models.Items
         public string Creator { get; set; }
         public DateTime Modified { get; set; }
         public string Modifier { get; set; }
+
+        [Display("Termbase entry ID")]
         public int Id { get; set; }
         public string Client { get; set; }
         public string Domain { get; set; }
