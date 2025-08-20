@@ -1,6 +1,8 @@
-﻿using Apps.MemoQResources.DataSourceHandlers.Enum;
+﻿using Apps.MemoQResources.DataSourceHandlers;
+using Apps.MemoQResources.DataSourceHandlers.Enum;
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Dictionaries;
+using Blackbird.Applications.Sdk.Common.Dynamic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +15,7 @@ namespace Apps.MemoQResources.Models.Request
     public class CreateTermbaseEntryRequest
     {
         [Display("Termbase ID")]
+        [DataSource(typeof(TermbaseDataHandler))]
         public string Guid { get; set; } = default!;
 
         public string? Client { get; set; }
@@ -22,6 +25,7 @@ namespace Apps.MemoQResources.Models.Request
         public string? Subject { get; set; }
 
         [Display("Language")]
+        [StaticDataSource(typeof(TargetLanguageDataHandler))]
         public string Language { get; set; } = default!;
 
         [Display("Text")]
