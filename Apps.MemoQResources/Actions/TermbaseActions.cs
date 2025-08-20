@@ -99,7 +99,7 @@ public class TermbaseActions : BaseInvocable
         return new ListTermBaseResponse { Termbases = list };
     }
 
-    [Action("Create termbase entry", Description = "Creates a termbase entry in the specified TB")]
+    [Action("Create term", Description = "Creates a termbase entry in the specified TB")]
     public async Task<CreateTermResponse> CreateTerm(
     [ActionParameter] CreateTermbaseEntryRequest input)
     {
@@ -159,7 +159,7 @@ public class TermbaseActions : BaseInvocable
         return new CreateTermResponse { CreatedEntry = created };
     }
 
-    [Action("Delete termbase entry", Description = "Deletes a termbase entry ")]
+    [Action("Delete term", Description = "Deletes a termbase entry ")]
     public async Task<DeleteTermbaseEntryResponse> DeleteTermbaseEntry([ActionParameter] DeleteTermbaseEntryRequest input)
     {
         if (string.IsNullOrWhiteSpace(input.Guid))
