@@ -34,10 +34,10 @@ Before you can connect you need to make sure that:
 
 ### Termbase
 
+- **Create term** Creates a new term entry in a termbase.
 - **Update term**  Updates a specific term in a termbase.
-- **Delete termbase entry** Deletes a specific term from a termbase.
+- **Delete term** Deletes a specific term from a termbase.
 - **Search termbases** Searches for termbases.
-- **Create termbase entry** Creates a new term in a termbase.
 
 ## Events
 
