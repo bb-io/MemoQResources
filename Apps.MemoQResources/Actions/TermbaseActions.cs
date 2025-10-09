@@ -1,27 +1,20 @@
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using Apps.MemoQResources.Api;
-using Apps.MemoQResources.Invocables;
 using Apps.MemoQResources.Models.Items;
 using Apps.MemoQResources.Models.Request;
 using Apps.MemoQResources.Models.Response;
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Actions;
-using Blackbird.Applications.Sdk.Common.Connections;
 using Blackbird.Applications.Sdk.Common.Exceptions;
 using Blackbird.Applications.Sdk.Common.Invocation;
 using RestSharp;
-using System.ComponentModel;
 
 namespace Apps.MemoQResources.Actions;
 
-[ActionList]
-public class TermbaseActions : BaseInvocable
+[ActionList("Terms")]
+public class TermbaseActions(InvocationContext invocationContext) : BaseInvocable(invocationContext)
 {
-    public TermbaseActions(InvocationContext invocationContext) : base(invocationContext)
-    {
-    }
-
     [Action("Update term", Description = "Updates a termbase entry")]
     public async Task<UpdateTermResponse> UpdateTerm([ActionParameter] UpdateTermRequest input)
     {
