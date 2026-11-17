@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <Product>memoQ Resources</Product>
         <Description>The app supports manipulating translation memories (TM) and termbases (TB).</Description>
-        <Version>1.0.8</Version>
+        <Version>1.0.9</Version>
         <AssemblyName>Apps.MemoQResources</AssemblyName>
     </PropertyGroup>
 
@@ -19,4 +19,7 @@
         <PackageReference Include="Blackbird.Applications.Sdk.Utils" Version="1.0.26" />
     </ItemGroup>
 
+    <ItemGroup>
+        <EmbeddedResource Include="..\README.md" Link="README.md" CopyToOutputDirectory="Always" />
+    </ItemGroup>
 </Project>
